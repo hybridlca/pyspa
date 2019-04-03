@@ -87,45 +87,6 @@ def load_instance_from_file(path: str, type_: type):
     except TypeError:
         pass
 
-
-def run_spa(target_ID: int, max_stage: int, a_matrix_file_path: str, infosheet_file_path: str,
-            thresholds_file_path: str):
-    """
-    Main function in the module, runs a structural path analysis on the target sector/process ID in the specified files,
-    according to the specified thresholds and up to the max_stage upstream in the supply chain
-    :param target_ID: the numerial ID of the target sector/process on which to run the SPA
-    :param max_stage: the maximum number of stages upstream
-    :param a_matrix_file_path: the file path to the technological A matrix, csv or xls
-    :param infosheet_file_path: the file path to the infoosheet, csv or xls
-    :param thresholds_file_path: the file path to the thresholds, csv or xls
-    :return: A supply chain object
-    """
-    interface = Interface(a_matrix_file_path, infosheet_file_path, thresholds_file_path)
-    sc = SupplyChain(target_ID=target_ID - 1,  # need to remove 1 to align with 0-indexing in python
-                     sectors_definition_dict=interface.infosheet_dataframe.to_dict(orient='index'),
-                     a_matrix=interface.a_matrix,
-                     dr_vectors_dict=interface.dr_vectors_dict,
-                     tr_vectors_dict=interface.tr_vectors_dict,
-                     thresholds_dict=interface.thresholds_dict,
-                     flows_dict=interface.flows_dict,
-                     max_stage=max_stage
-                     )
-    print('Supply Chain object created, extracting pathways, which will take some time...')
-    sc.extract_pathways()
-    print('Pathways successfully extracted.')
-    export_to_csv = input('Export them to csv? (yes/no) >>> ')
-    if export_to_csv.lower().strip() in ['yes', 'y', 'yeah']:
-        csv_path = input('Please specify the full path of the csv file you want to export to >>> ')
-        if csv_path.endswith('.csv'):
-            try:
-                sc.export_to_csv(csv_path)
-            except:
-                raise FileNotFoundError('There was an issue exporting the csv')
-        else:
-            raise FileNotFoundError('Please specify a csv file (explicitly write .csv at the end)')
-    return sc
-
-
 class Interface:
     """
     Handles the original creation of the supply chain object from csv files
@@ -2210,3 +2171,45 @@ def _add_extraction_stage(stage):
                 continue
 
     setattr(SupplyChain, fn_name, fn_extraction_stage)
+
+
+def get_spa(target_ID: int, max_stage: int, a_matrix_file_path: str, infosheet_file_path: str,
+            thresholds_file_path: str, interactive=False) -> SupplyChain:
+    """
+    Main function in the module, runs a structural path analysis on the target sector/process ID in the specified files,
+    according to the specified thresholds and up to the max_stage upstream in the supply chain
+    :param target_ID: the numerial ID of the target sector/process on which to run the SPA
+    :param max_stage: the maximum number of stages upstream
+    :param a_matrix_file_path: the file path to the technological A matrix, csv or xls
+    :param infosheet_file_path: the file path to the infoosheet, csv or xls
+    :param thresholds_file_path: the file path to the thresholds, csv or xls
+    :param interactive: Boolean that flags if the user wants the code to dynamically ask for input
+    :return: A supply chain object
+    """
+    interface = Interface(a_matrix_file_path, infosheet_file_path, thresholds_file_path)
+    sc = SupplyChain(target_ID=target_ID - 1,  # need to remove 1 to align with 0-indexing in python
+                     sectors_definition_dict=interface.infosheet_dataframe.to_dict(orient='index'),
+                     a_matrix=interface.a_matrix,
+                     dr_vectors_dict=interface.dr_vectors_dict,
+                     tr_vectors_dict=interface.tr_vectors_dict,
+                     thresholds_dict=interface.thresholds_dict,
+                     flows_dict=interface.flows_dict,
+                     max_stage=max_stage
+                     )
+    print('Supply Chain object created, extracting pathways, which will take some time...')
+    sc.extract_pathways()
+    print('Pathways successfully extracted.')
+    if interactive:
+        export_to_csv = input('Export them to csv? (yes/no) >>> ')
+        if export_to_csv.lower().strip() in ['yes', 'y', 'yeah']:
+            csv_path = input('Please specify the full path of the csv file you want to export to >>> ')
+            if csv_path.endswith('.csv'):
+                try:
+                    sc.export_to_csv(csv_path)
+                except:
+                    raise FileNotFoundError('There was an issue exporting the csv')
+            else:
+                raise FileNotFoundError('Please specify a csv file (explicitly write .csv at the end)')
+    else:
+        pass
+    return sc
