@@ -1,4 +1,4 @@
-# pyspa
+![pyspa banner](https://github.com/hybridlca/pyspa/blob/master/pyspa.png)
 
 __pyspa__ is an object-oriented __python__ package which enables you to conduct a parametric structural path analysis on square A matrices (process or input-output) for any number of environmental, social or economic satellites and for any number of stages upstream in your supply chain (as long you have enough RAM). The package produces a SupplyChain object which includes Pathway and Node objects. Results can be exported to the csv format with a single line of code.
 
@@ -68,7 +68,7 @@ loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 + [Robert H Crawford](https://github.com/rhcr) - _project leader and theoretical guidance_ - [ORCID](https://orcid.org/0000-0002-0189-3221)
 
 ## License
-This project is shared under a GNU General Public License v3.0. See the [LICENSE.md](../master/LICENSE) file for more information.
+This project is shared under a GNU General Public License v3.0. See the [LICENSE](../master/LICENSE) file for more information.
 
 ## Acknowledgments
 
