@@ -1,4 +1,4 @@
-![pyspa banner](https://github.com/hybridlca/pyspa/blob/master/pyspa.png)
+![pyspa banner](https://github.com/hybridlca/pyspa/blob/master/banner.png)
 
 __pyspa__ is an object-oriented __python__ package which enables you to conduct a parametric structural path analysis on square A matrices (process or input-output) for any number of environmental, social or economic satellites and for any number of stages upstream in your supply chain (as long you have enough RAM). The package produces a SupplyChain object which includes Pathway and Node objects. Results can be exported to the csv format with a single line of code.
 
