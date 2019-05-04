@@ -12,21 +12,22 @@ import copy
 """
 This module was built during the publically funded Australian Research Council DP150100962 project at the University of
 Melbourne, Australia. It includes a set of Classes to conduct Structural Path Analysis (SPA) on input-output and process
-data using environmental, social or financial satelliates. 
+data using environmental, social or financial satellites. 
 """
 
 __authors__ = 'Andre Stephan (ORCID: 0000-0001-9538-3830), ' \
               'Paul-Antoine Bontinck (ORCID: 0000-0002-4072-1334)'
-__version__ = '0.2'
+__version__ = '1.0'
 __status__ = 'Stable version'
 
-# global variables, used notably when outputing csv files
+# global variables, used notably when writing csv files
 INITIAL_HEADER_LIST = [
     '% of total intensity: ',
     'direct intensity of last node in pathway',
     'total intensity of pathway'
 ]
 
+flow = namedtuple('flow', 'name, unit')  # declare here to enable pickling of referencing objects
 
 def _get_clean_filename(name: str) -> str:
     """
@@ -54,6 +55,7 @@ def _save_pickle(data, filename: str = None, directory: str = None, file_extensi
 
     with gzip.open(path, 'wb', compresslevel=9) as file_data:
         pickle.dump(data, file_data, protocol=4)
+    print('File saved at ' + path)
     return True
 
 
@@ -83,13 +85,16 @@ def load_instance_from_file(path: str, type_: type):
     """
     try:
         loaded = _load_pickle(path=path)
-        return type_(**loaded)
+        loaded_instance = type_(**loaded)
+        print('Successfully loaded the file ' + path + ' as an instance of ' + str(type_))
+        return loaded_instance
     except TypeError:
-        pass
+        raise TypeError('Could not load the file ' + path + ' as an instance of ' + str(type_))
+
 
 class Interface:
     """
-    Handles the original creation of the supply chain object from csv files
+    Handles the creation of the supply chain object from csv files
     """
 
     def __init__(self, a_matrix_file_path: str, infosheet_file_path: str, thresholds_file_path):
@@ -99,13 +104,31 @@ class Interface:
         :param infosheet_file_path:
         :param thresholds_file_path:
         """
-
+        print('Reading infosheet...', end='')
         self.infosheet_dataframe = self._read_file(self, infosheet_file_path)
-        self.a_matrix = self._read_file(self, a_matrix_file_path, output='array')
+        print('Done')
+
+        print('Extracting names of satellites...', end='')
         self.flows_dict = self._get_flows_dict()
+        print('Done')
+
+        print('Reading Thresholds...', end='')
         self.thresholds_dict = self._read_file(self, thresholds_file_path, output='thresholds_dict')
+        print('Done')
+
+        print('Reading A matrix...', end='')
+        self.a_matrix = self._read_file(self, a_matrix_file_path, output='array')
+        print('Done')
+
+        print('Validating read data...', end='')
         self._validate_loaded_files()
+        print('Done')
+
+        print('Generating vectors of direct and total multipliers...', end='')
         self.dr_vectors_dict, self.tr_vectors_dict = self._generate_multipliers_dicts()
+        print('Done')
+
+        print('------ Ready to conduct the Structural Path Analysis ------')
 
     @staticmethod
     def _read_file(self, path, output='df'):
@@ -118,7 +141,7 @@ class Interface:
         """
         if path.endswith('.csv'):
             if output is 'df':
-                read_data = pd.read_csv(path, sep=',')
+                read_data = pd.read_csv(path, sep=',', encoding='ISO-8859-1')
             elif output == 'array':
                 read_data = pd.read_csv(path, sep=',').values
             elif output == 'thresholds_dict':
@@ -128,7 +151,7 @@ class Interface:
         elif path.endswith('.xls') or path.endswith('.xlsx'):
             if os.path.getsize(path) < 10 ** 8:
                 if output is 'df':
-                    read_data = pd.read_excel(path, sep=',')
+                    read_data = pd.read_excel(path, sep=',', encoding='ISO-8859-1')
                 elif output == 'array':
                     read_data = pd.read_excel(path, sep=',').values
                 elif output == 'thresholds_dict':
@@ -177,8 +200,8 @@ class Interface:
 
         print('The A matrix loaded is square and contains ' + str(
             self.a_matrix.shape[0]) + ' sectors/processes across ' + str(len(
-            self._get_regions())) + ' region(s), and described in the infosheet provided, for ' + str(len(
-            self.flows_dict.keys())) + ' satellite(s)')
+            self._get_regions())) + ' region(s), and is described in the infosheet provided, for ' + str(len(
+            self.flows_dict.keys())) + ' satellite(s)...', end='')
 
     def _get_regions(self, ref_dataframe: pd.DataFrame = None):
         """
@@ -189,7 +212,7 @@ class Interface:
 
         if ref_dataframe is None:
             ref_dataframe = self.infosheet_dataframe
-        return list(set(ref_dataframe['Region'].as_matrix()))
+        return list(set(ref_dataframe['Region'].values))
 
     def _get_flows_dict(self, ref_dataframe: pd.DataFrame = None) -> dict:
         """
@@ -202,26 +225,19 @@ class Interface:
         if ref_dataframe is None:
             ref_dataframe = self.infosheet_dataframe
 
-        flow = namedtuple('Flow', 'name, unit')
         attributes_list = list(ref_dataframe.columns.values)
 
         # generate a dictionary of flows names and flows named tupled by removing 'DR' or 'TR' from the string
         # and extracting the unit in between hyphens '()'
         flows_dict = {
             item[3:item.index('(') - 1]: flow(item[3:item.index('(') - 1].capitalize(),
-                                              item[item.index('('):item.index(')') + 1]) for
+                                              item[item.index('(') + 1:item.index(')')]) for
             item in attributes_list if (item.startswith('DR_') or item.startswith('TR_'))
         }
 
         return flows_dict
 
-    def _get_thresholds_dict(self) -> dict:
-        """
-        Reads the thresholds csv file as a dataframe and converts it to a dictionary
-        :return:
-        """
-
-    def _generate_multipliers_dicts(self, ref_dataframe=None, flows_dict: dict = None) -> dict:
+    def _generate_multipliers_dicts(self, ref_dataframe=None, flows_dict: dict = None):
         """
         Generates the dicts of multipliers based on the reference dataframe and the flows to consider
         :param ref_dataframe: the infosheet dataframe
@@ -238,8 +254,8 @@ class Interface:
         dr_dict, tr_dict = {}, {}
 
         for flow, flow_tuple in flows_dict.items():
-            dr_dict[flow] = ref_dataframe['DR_' + flow + '_' + flow_tuple.unit].as_matrix()
-            tr_dict[flow] = ref_dataframe['TR_' + flow + '_' + flow_tuple.unit].as_matrix()
+            dr_dict[flow] = ref_dataframe['DR_' + flow + '_(' + flow_tuple.unit + ')'].values
+            tr_dict[flow] = ref_dataframe['TR_' + flow + '_(' + flow_tuple.unit + ')'].values
 
         return dr_dict, tr_dict
 
@@ -275,6 +291,7 @@ class Node:
         and their intensities as values (e.g. 0.5)
         :param nature: nature of the data (Process or IO)
         :param unit: the functional unit of the sector or process represented by that node
+        :param region: the geographic region of the node
         :return: a handle to the node object created
         """
         self.index_reference = index_reference  # numerical index from 1 to the total number of sector or processes
@@ -741,19 +758,20 @@ class Pathway:
         return intensity
 
     def print_pathway(self, flow: str, ref_dict: dict, streamlined: bool = True or False,
-                      to_csv: bool = True or False):
+                      to_csv: bool = True or False, multiregional: bool = False):
         """
         Prints the pathway in ASCii characters as a csv file.
         :param flow: Flow being analysed
         :param ref_dict: the sector definition dict of the supply chain object
         :param streamlined: whether or not the output should be streamlined
         :param to_csv: whether the output is printed to a csv file or not
+        :param multiregional: wheter or not we should plot the region of the node
         :return: a string of output summarising data for the pathway
         """
         line_list = list()
         if to_csv:
             line_list.append(
-                "{:.5%}".format(  # format the percentage of total requirements represented by the pathway
+                "{:.6%}".format(  # format the percentage of total requirements represented by the pathway
                     self.get_fraction_of_total_intensity_for(flow)))
         else:
             line_list.append(self.get_fraction_of_total_intensity_for(flow))
@@ -773,6 +791,8 @@ class Pathway:
             else:
                 line_list.append(node.direct_intensities[flow])
                 line_list.append(node.get_node_attribute(ref_dict, 'Name'))
+            if multiregional:
+                line_list[-1] += '(' + node.get_node_attribute(ref_dict, 'Region') + ')'
         if to_csv:
             output_string = ''
             for item in line_list:
@@ -909,7 +929,10 @@ class PathwayList(list):
             if pathway.nature == 'io' and value is not None:
                 return pathway.nodes[-1].direct_intensities[flow] * value
             else:
-                return pathway.nodes[-1].direct_intensities[flow]
+                if pathway.nodes[-1].direct_intensities[flow] is not None:
+                    return pathway.nodes[-1].direct_intensities[flow]
+                else:
+                    return -1  # use to put None items at the end
 
         if number_of_pathways is not None:
             return PathwayList(sorted(self, key=get_last_node_direct_intensity)[:number_of_pathways][::-1])
@@ -1306,7 +1329,7 @@ class SupplyChain:
     A class representing the entire supply chain associated with an input-output sector or with a process.
     """
 
-    _slots_dict = {
+    _attribute_dict = {
         'target_ID': int,
         'sector_definition_dict': dict,
         'a_matrix': np.array,
@@ -1315,19 +1338,12 @@ class SupplyChain:
         'thresholds_dict': dict,
         'max_stage': int,
         'nature': str,
-        'header_line': str,
-        'chosen_flows_list': list,
-        'temp_nodes': TemporaryList,
-        'temp_transactions': TemporaryList,
         'pathways_list': PathwayList,
         'root_node': Node,
-        'calculations_in_progress': bool,
         'flows_dict': dict
     }
 
-    __slots__ = list(_slots_dict.keys())
-
-    def __init__(self, target_ID: int, sectors_definition_dict: dict, a_matrix: np.array, dr_vectors_dict: dict,
+    def __init__(self, target_ID: int, sector_definition_dict: dict, a_matrix: np.array, dr_vectors_dict: dict,
                  tr_vectors_dict: dict, thresholds_dict: dict, flows_dict: dict, max_stage: int = 7,
                  nature: str = 'io' or 'process', pathways_list=None, root_node=None):
         """
@@ -1351,7 +1367,7 @@ class SupplyChain:
         :return:
         """
         self.target_ID = target_ID  # numerical index of the sector or process being analysed
-        self.sector_definition_dict = sectors_definition_dict
+        self.sector_definition_dict = sector_definition_dict
         self.a_matrix = a_matrix
         self.dr_vectors_dict = dr_vectors_dict
         self.tr_vectors_dict = tr_vectors_dict
@@ -1382,8 +1398,6 @@ class SupplyChain:
         # generate all necessary functions to extract pathways up to the max stage. Avoids recursive code.
         for stage in range(1, self.max_stage + 1):
             _add_extraction_stage(stage)
-
-        self.calculations_in_progress = False  # use as a flag for progress dialogs
 
     def __repr__(self):
         """
@@ -1571,12 +1585,33 @@ class SupplyChain:
         """
         return list(self.thresholds_dict.keys())
 
+    def get_regions(self):
+        """
+        Reads the regions in ref_dataframe and determines which regions are actually included in the  file
+        :return: List of regions
+        """
+        regions_list = [info_dict['Region'] for info_dict in self.sector_definition_dict.values()]
+
+        return list(set(regions_list))  # eliminate duplicates
+
     def get_root_node(self):
         """
         Returns the root node of the supply chain
         :return: a Node object
         """
         return self.root_node
+
+    def _is_multiregional(self):
+        """
+        Checks if the supply chain is multiregional
+        :return: True or False
+        """
+        if len(self.get_regions()) > 1:
+            return True
+        elif len(self.get_regions()) == 1:
+            return False
+        else:
+            raise ValueError('The supply chain contains no regions, check your input files')
 
     def _generate_root_node(self):
         """
@@ -1683,11 +1718,9 @@ class SupplyChain:
         Saves the SupplyChain object to a file.
         :param path: directory where the SupplyChain object is saved
         """
-        temp_dict = {attribute: getattr(self, attribute) for attribute in self.__slots__}
+        temp_dict = {attribute: getattr(self, attribute) for attribute in self._attribute_dict.keys()}
         _save_pickle(temp_dict, path=path)
         del temp_dict
-        # with gzip.open(path, 'wb') as file:
-        #     pickle.dump(vars(self), file)
 
     def load(self, path):
         """
@@ -1708,13 +1741,14 @@ class SupplyChain:
         :return: analysis metadata in the form of a list of strings to be used for the file header
         """
         file_title_block = [
-            ['target sector: ', str(self.sector_definition_dict[self.target_ID]['Name'])],
-            ['sector ID: ', str(self.target_ID)],
-            ['no sectors in A matrix: ', str(self.a_matrix.shape[0])],
-            ['total no pathways extracted: ', str(len(self.pathways_list))],
-            ['stages analysed: ', str(self.max_stage)],
-            ['date of extraction: ', time.strftime("%x")],
-            ['time of extraction: ', time.strftime("%X")]
+            ['Target sector: ', str(self.sector_definition_dict[self.target_ID]['Name'])],
+            ['Sector ID: ', str(self.target_ID+1)], # add one to match the index in the csv file
+            ['Number of Regions in input data: ', str(len(self.get_regions()))],
+            ['Number of sectors in A matrix: ', str(self.a_matrix.shape[0])],
+            ['Total number of pathways extracted: ', str(len(self.pathways_list))],
+            ['Stages analysed: ', str(self.max_stage)],
+            ['Date of extraction: ', time.strftime("%x")],
+            ['Time of extraction: ', time.strftime("%X")]
         ]
         if to_csv:
             new_title_block = []
@@ -1821,13 +1855,21 @@ class SupplyChain:
             df_data_list[0].to_excel(writer, sheet_name=df_name, index=df_data_list[1], header=df_data_list[2])
         writer.save()
 
-    def export_to_csv(self, path=None, streamlined=True or False):
+    def export_to_csv(self, path=None, streamlined=True or False, multiregional=None):
         """
         Exports the SupplyChain object to a csv file.
         :param path: directory of the file to be created (including directory and name).
         :param streamlined: whether or not the output is streamlined (the number of columns of the spa results table
+        :param multiregional: whether or not the data is multiregional (displays or not the region for each stage)
         will include the DR of all nodes in the pathways, or not.
         """
+        if multiregional is None:
+            multiregional = self._is_multiregional()
+        elif multiregional is False or multiregional is True:
+            pass
+        else:
+            raise ValueError('multiregional should be either None, True or False')
+
         with open(path, 'w', newline='') as csv_file:
             output_writer = csv.writer(csv_file, delimiter='\t')
             for line in self._generate_file_title_block(to_csv=True):
@@ -1840,9 +1882,10 @@ class SupplyChain:
                 output_writer.writerow([self._generate_spa_table_header(streamlined)])
                 for pathway in self.pathways_list.get_first_n_pathways(flow, len(self.pathways_list)):
                     # write up pathways extracted
-                    if pathway.nodes[-1].direct_intensities[flow] is not None:
+                    if pathway.nodes[-1].direct_intensities[flow] is not None \
+                            and pathway.nodes[-1].direct_intensities[flow] != 0.:
                         line = pathway.print_pathway(flow=flow, ref_dict=self.sector_definition_dict,
-                                                     streamlined=streamlined, to_csv=True)
+                                                     streamlined=streamlined, to_csv=True, multiregional=multiregional)
                         output_writer.writerow([line])
                     else:
                         continue
@@ -1900,10 +1943,8 @@ class SupplyChain:
         if target_sector is None:
             target_sector = self.target_ID
 
-        self.calculations_in_progress = True
         self._extract_stage_1_pathway(target_sector,
-                                      thresholds_dict=thresholds_dict)  # inserted dynamically into class
-        self.calculations_in_progress = False
+                                      thresholds_dict=thresholds_dict)  # method inserted dynamically into class
         self._insert_direct_requirements()
 
         return self.pathways_list
@@ -1960,27 +2001,14 @@ class SupplyChain:
 
         return requirements_sector_dict
 
-    def _get_thresholds_test(self, total_requirements_dict, custom_threshold_dict=None, custom_flows=None):
+    def _get_thresholds_test(self, total_requirements_dict):
         """
         Tests the values in the total requirement dictionary against the thresholds defined for each flow
         :param total_requirements_dict: dictionary of total coefficient calculated for each flow assessed
-        :param custom_threshold_dict: a customised dictionary of threshold can be used - otherwise the threshold_dict
-        defined at the initialisation of the SupplyChain will be used
-        :param custom_flows: a customised list of flows can be used for the analysis - otherwise the list of flows
-        defined at the initialisation of the SupplyChain will be used
-        :return: a dictionary of test results for each flow assessed
         """
-        if custom_threshold_dict is None:
-            threshold_dict = self.thresholds_dict
-        else:
-            threshold_dict = custom_threshold_dict
 
-        if custom_flows is None:
-            flows = self.chosen_flows_list
-        else:
-            flows = custom_flows
-
-        threshold_test_dict = {flow: total_requirements_dict[flow] > threshold_dict[flow] for flow in flows}
+        threshold_test_dict = {flow: total_requirements_dict[flow] > self.thresholds_dict[flow] for flow in
+                               self.chosen_flows_list}
         return threshold_test_dict
 
     @staticmethod
@@ -2016,7 +2044,7 @@ class SupplyChain:
             if test_result:
                 direct_coeff_dict[flow] = acc_tech_coeff * self.dr_vectors_dict[flow][input_sector]
             else:
-                direct_coeff_dict[flow] = False
+                direct_coeff_dict[flow] = None
         if self.nature == 'io' or self.nature == 'process':
             origin_node = Node(index_reference=input_sector,
                                stage=stage,
@@ -2026,7 +2054,7 @@ class SupplyChain:
                                nature=self.nature)
 
         else:
-            raise TypeError('The node to be added has no IO or Process nature')
+            raise TypeError('The node to be added has no io or Process nature')
 
         # print('origin node: ', origin_node)
         if stage == 1:
@@ -2188,7 +2216,7 @@ def get_spa(target_ID: int, max_stage: int, a_matrix_file_path: str, infosheet_f
     """
     interface = Interface(a_matrix_file_path, infosheet_file_path, thresholds_file_path)
     sc = SupplyChain(target_ID=target_ID - 1,  # need to remove 1 to align with 0-indexing in python
-                     sectors_definition_dict=interface.infosheet_dataframe.to_dict(orient='index'),
+                     sector_definition_dict=interface.infosheet_dataframe.to_dict(orient='index'),
                      a_matrix=interface.a_matrix,
                      dr_vectors_dict=interface.dr_vectors_dict,
                      tr_vectors_dict=interface.tr_vectors_dict,
@@ -2197,8 +2225,13 @@ def get_spa(target_ID: int, max_stage: int, a_matrix_file_path: str, infosheet_f
                      max_stage=max_stage
                      )
     print('Supply Chain object created, extracting pathways, which will take some time...')
+    start_time = datetime.datetime.now()
+    print('Started at ' + start_time.strftime('%H:%M:%S'))
     sc.extract_pathways()
-    print('Pathways successfully extracted.')
+    end_time = datetime.datetime.now()
+    print(
+        'Ended at ' + end_time.strftime('%H:%M:%S') + '. It took ' + str((end_time - start_time).seconds) + ' seconds '
+        + 'to extract ' + str(sc.get_number_of('pathways')) + ' pathways.')
     if interactive:
         export_to_csv = input('Export them to csv? (yes/no) >>> ')
         if export_to_csv.lower().strip() in ['yes', 'y', 'yeah']:
