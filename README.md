@@ -14,7 +14,10 @@ You will need __python__ to run this package as well as the following python pac
 
 ### Installing
 Download and install the package from pip
-```pip install pyspa```
+
+```
+pip install pyspa
+```
 
 ## Testing pyspa
 
@@ -26,21 +29,29 @@ Identify the template files in the installed directory, or download them directl
 
 Once you have located these files, __you need to run a single function__ that will read the data, conduct the structural path analysis and return a SupplyChain object, as per the following code.
 
-```sc = pyspa.get_spa(target_id = 78, max_stage = 6, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template.csv')```
+```
+sc = pyspa.get_spa(target_id = 78, max_stage = 6, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template.csv')
+```
 
 This will return your SupplyChain object which has numerous methods. Read the [documentation](../blob/master/pyspa_v1.0_documentation.html) for more information.
 
 To export the structural path analysis to a __csv__ file, use the built-in method.
 
-```sc.export_to_csv('spa_results.csv')```
+```
+sc.export_to_csv('spa_results.csv')
+```
 
 To __save__ your SupplyChain object and avoid having to recalculate everything (this uses pickle):
 
-```sc.save('supply_chain.sc')```
+```
+sc.save('supply_chain.sc')
+```
 
 To __load__ a previously saved SupplyChain object:
 
-```loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)```
+```
+loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
+```
 
 ## Built with:
 
