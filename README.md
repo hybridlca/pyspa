@@ -52,6 +52,7 @@ To __load__ a previously saved SupplyChain object:
 ```
 loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 ```
+The __detailed documentation__ is available [here](../master/pyspa_v1.0_documentation.html)
 
 ## Built with:
 
