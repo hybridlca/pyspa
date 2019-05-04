@@ -55,17 +55,17 @@ loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 
 ## Built with:
 
-+[pycharm](https://www.jetbrains.com/pycharm/)
-+[sourcetree](https://www.sourcetreeapp.com/)
-+Sweat, tears, Belgian beers, and coffee from Castro's
++ [pycharm](https://www.jetbrains.com/pycharm/)
++ [sourcetree](https://www.sourcetreeapp.com/)
++ Sweat, tears, Belgian beers, and coffee from Castro's
 
 ## Authors and contributors
 
 ### Authors
-+[André Stephan](https://github.com/andrestephan1) - _overall design, implementation, testing and debugging_ - [ORCID](https://orcid.org/0000-0001-9538-3830)
-+[Paul-Antoine Bontinck](https://github.com/pa-bontinck) - _optimisation, implementation, testing and debugging_ - [ORCID](https://orcid.org/0000-0002-4072-1334)
++ [André Stephan](https://github.com/andrestephan1) - _overall design, implementation, testing and debugging_ - [ORCID](https://orcid.org/0000-0001-9538-3830)
++ [Paul-Antoine Bontinck](https://github.com/pa-bontinck) - _optimisation, implementation, testing and debugging_ - [ORCID](https://orcid.org/0000-0002-4072-1334)
 ### Contributors
-+[Robert H Crawford](https://github.com/rhcr) - _project leader and theoretical guidance_ - [ORCID](https://orcid.org/0000-0002-0189-3221)
++ [Robert H Crawford](https://github.com/rhcr) - _project leader and theoretical guidance_ - [ORCID](https://orcid.org/0000-0002-0189-3221)
 
 ## License
 This project is shared under a GNU General Public License v3.0. See the [LICENSE.md](../blob/master/LICENSE) file for more information.
