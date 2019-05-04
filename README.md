@@ -68,7 +68,7 @@ loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 + [Robert H Crawford](https://github.com/rhcr) - _project leader and theoretical guidance_ - [ORCID](https://orcid.org/0000-0002-0189-3221)
 
 ## License
-This project is shared under a GNU General Public License v3.0. See the [LICENSE.md](../master/LICENSE.md) file for more information.
+This project is shared under a GNU General Public License v3.0. See the [LICENSE.md](../master/LICENSE) file for more information.
 
 ## Acknowledgments
 
