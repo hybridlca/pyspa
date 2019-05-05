@@ -79,7 +79,7 @@ _Preview of A matrix csv layout ↓_
 | :-------------------------------: |:-----------------------------------:| :--------------------------------:|
 | <A matrix: input from 1 into 1>   | <A matrix: input from 1 into ...>   | <A matrix: input from 1 into n>   |
 | <A matrix: input from ... into 1> | <A matrix: input from ... into ...> | <A matrix: input from ... into n> |
-| <A matrix: input from n into 1>   | <A matrix: input from n into ...>   | zibron pointu   |
+| <A matrix: input from n into 1>   | <A matrix: input from n into ...>   | <A matrix: input from n into n>   |
 
 
 #### Infosheet
