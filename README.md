@@ -52,6 +52,20 @@ To __load__ a previously saved SupplyChain object:
 ```
 loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 ```
+
+We have developped the required python methods on each object so that you can compare them. Thus,
+
+```
+sc == loaded_sc
+```
+or
+
+```
+sc.root_node == loaded_sc.root_node
+```
+
+will return _True_.
+
 The __detailed documentation__ is available [here](http://htmlpreview.github.io/?https://github.com/hybridlca/pyspa/blob/master/pyspa_v1.0_documentation.html)
 
 ## Input files
