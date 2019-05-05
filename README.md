@@ -53,7 +53,7 @@ To __load__ a previously saved SupplyChain object:
 loaded_sc = pyspa.load_instance_from_file('supply_chain.sc', pyspa.SupplyChain)
 ```
 
-We have developped the required python methods on each object so that you can compare them. Thus,
+We have developped the required python methods on each object so that you can __compare__ them. Thus,
 
 ```
 sc == loaded_sc
