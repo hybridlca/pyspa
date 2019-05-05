@@ -118,6 +118,8 @@ The csv output file contains some metadata on the structural path analysis itsel
 
 The direct intensity/multiplier/requirement of the selected sector/process is referred to as _DIRECT (Stage 0)_. _Stage 1_ refers to the first stage upstream in the supply chain, _Stage 2_ the following stage, all the way to _Stage m_ as selected at the start. We recommend using around __10 stages__ upstream for process data, and __8 stages__ upstream for input-output data, based on our experience. But these values might differ.
 
+__Note__: The results for each satellite/flow are listed on the same csv sheet, in the order the appear in the infosheet. You will need to scroll down to identify where each new satellite/flow results starts, which is indicated by a header and an empty row. For those using Windows, you can click on any pathway for any given satellite/flow and press: "Ctrl + Shift + ↓". This will take you to the last pathway for this satellite/flow.
+
 ## Built with:
 
 + [pycharm](https://www.jetbrains.com/pycharm/)
