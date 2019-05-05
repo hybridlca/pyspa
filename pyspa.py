@@ -10,7 +10,7 @@ import time
 import copy
 
 """
-This module was built during the publically funded Australian Research Council DP150100962 project at the University of
+This module was built during the publicly funded Australian Research Council DP150100962 project at the University of
 Melbourne, Australia. It includes a set of Classes to conduct Structural Path Analysis (SPA) on input-output and process
 data using environmental, social or financial satellites. 
 """
@@ -28,6 +28,7 @@ INITIAL_HEADER_LIST = [
 ]
 
 flow = namedtuple('flow', 'name, unit')  # declare here to enable pickling of referencing objects
+
 
 def _get_clean_filename(name: str) -> str:
     """
@@ -310,6 +311,29 @@ class Node:
         :return: a string
         """
         return 'Index reference %s [S%s]' % (self.index_reference, self.stage)
+
+    def __eq__(self, other):
+        """
+        Compares an instance of node to another by checking the equality of its ID
+        :param other: the other object used in the comparison
+        :return: bool
+        """
+        return self.get_node_id() == other.get_node_id()
+
+    def __hash__(self):
+        """
+        Must be implemented to be able to use nodes in sets
+        :return:
+        """
+        return hash(self.get_node_id())
+
+    def __ne__(self, other):
+        """
+        Compares an instance of node to another by checking the inequality of its ID
+        :param other: the other object used in the comparison
+        :return: bool
+        """
+        return not self == other
 
     def __setstate__(self, pickled_dict):
         """
@@ -1415,7 +1439,8 @@ class SupplyChain:
         """
         if isinstance(other, self.__class__):
             return self.target_ID == other.target_ID and self.thresholds_dict == other.thresholds_dict and \
-                   self.max_stage == other.max_stage and self.a_matrix.shape == other.a_matrix.shape
+                   self.max_stage == other.max_stage and self.a_matrix.shape == other.a_matrix.shape and \
+                   self.sector_definition_dict == other.sector_definition_dict
         else:
             return False
 
@@ -1742,7 +1767,7 @@ class SupplyChain:
         """
         file_title_block = [
             ['Target sector: ', str(self.sector_definition_dict[self.target_ID]['Name'])],
-            ['Sector ID: ', str(self.target_ID+1)], # add one to match the index in the csv file
+            ['Sector ID: ', str(self.target_ID + 1)],  # add one to match the index in the csv file
             ['Number of Regions in input data: ', str(len(self.get_regions()))],
             ['Number of sectors in A matrix: ', str(self.a_matrix.shape[0])],
             ['Total number of pathways extracted: ', str(len(self.pathways_list))],
