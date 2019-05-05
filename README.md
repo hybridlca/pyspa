@@ -59,7 +59,10 @@ We have developped the required python methods on each object so that you can __
 sc == loaded_sc
 ```
 or
-
+```
+sc.pathways_list[-1] == loaded_sc.pathways_list[-1]
+```
+or
 ```
 sc.root_node == loaded_sc.root_node
 ```
