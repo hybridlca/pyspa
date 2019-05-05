@@ -78,7 +78,8 @@ The A matrix should be provided in a single csv file, regardless of its size (we
 | <A matrix: input from 1 into 1> | <A matrix: input from 1 into ...> | <A matrix: input from 1 into n> |
 | <A matrix: input from ... into 1> | <A matrix: input from ... into ...> | <A matrix: input from ... into n> |
 | <A matrix: input from n into 1>  | <A matrix: input from n into ...> | <A matrix: input from n into n> |
-  
+
+
 #### Infosheet
 
 The infosheet must contain mandatory columns and at least one environmental/social/economic satellite/flow. It must be formatted as follows (all headers are case sensitive):
@@ -103,7 +104,7 @@ You can also add any other metadata column for your sectors/processes, and then 
 The thresholds csv is by far the simplest csv file to provide. It contains only __two columns__ and must be formatted as below:
 
 + The __first column__ has a header called __"Flow"__ which contains the name of each satellite/flow that you are using, e.g. GHGe. The name of the satellite/flow must be exactly the same as what is contained in the DR and TR headers of the infosheet, but without the __DR/TR\___ prefix and without the __\_(<satellite/flow_unit>)__ suffix.
-+ The __second column__ has a header called __"Value"__ which contains the threshold value of each satellite/flow that you are using, e.g. GHGe. This value is usually very low. For common environmental satellites/flows, such as water(kL), energy(GJ) and greenhouse gas emissions(kgCO<sub>2<\sub>e), we use threshold values for input-output data in the range of 0.000 1 and 0.000 000 000 1. The lower the threshold, the more supply chain nodes you consider, the longer the structural path analysis will take.
++ The __second column__ has a header called __"Value"__ which contains the threshold value of each satellite/flow that you are using, e.g. GHGe. This value is usually very low. For common environmental satellites/flows, such as water(kL), energy(GJ) and greenhouse gas emissions(kgCO<sub>2</sub>e), we use threshold values for input-output data in the range of 0.000 1 and 0.000 000 000 1. The lower the threshold, the more supply chain nodes you consider, the longer the structural path analysis will take.
  
 ## CSV output file
 
