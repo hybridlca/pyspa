@@ -74,11 +74,12 @@ The A matrix should be provided in a single csv file, regardless of its size (we
 + No text headers nor text content
 
 _Preview of A matrix csv layout ↓_
+
 | 1                                 | ...                                 | n                                 |
 | :-------------------------------: |:-----------------------------------:| :--------------------------------:|
 | <A matrix: input from 1 into 1>   | <A matrix: input from 1 into ...>   | <A matrix: input from 1 into n>   |
 | <A matrix: input from ... into 1> | <A matrix: input from ... into ...> | <A matrix: input from ... into n> |
-| <A matrix: input from n into 1>   | <A matrix: input from n into ...>   | <A matrix: input from n into n>   |
+| <A matrix: input from n into 1>   | <A matrix: input from n into ...>   | <A matrix: input from n into n>   | 
 
 #### Infosheet
 
