@@ -1,0 +1,115 @@
+Sector number,Name,Unit,Region,DR_GHG_emissions_(kgCO2e),TR_GHG_emissions_(kgCO2e)
+1,"Sheep, Grains, Beef and Dairy Cattle",AUD,Australia,1.809052728,2.370434846
+2,Poultry and Other Livestock,AUD,Australia,0.402523263,0.820964809
+3,Other Agriculture,AUD,Australia,0.193563391,0.568376589
+4,Aquaculture,AUD,Australia,0.090018616,0.586982573
+5,Forestry and Logging,AUD,Australia,0.065751714,0.535557772
+6,"Fishing, hunting and trapping",AUD,Australia,0.070288141,0.466841605
+7,"Agriculture, Forestry and Fishing Support Services",AUD,Australia,0.093625889,0.566007349
+8,Coal mining,AUD,Australia,0.869078617,1.51457944
+9,Oil and gas extraction,AUD,Australia,0.876954908,1.2621648
+10,Iron Ore Mining,AUD,Australia,0.054029974,0.54052699
+11,Non Ferrous Metal Ore Mining,AUD,Australia,0.23572546,0.954622477
+12,Non Metallic Mineral Mining,AUD,Australia,0.143691006,0.878496673
+13,Exploration and Mining Support Services,AUD,Australia,0.508813209,0.933784366
+14,Meat and Meat product Manufacturing,AUD,Australia,0.077825409,1.424738338
+15,Processed Seafood Manufacturing,AUD,Australia,0.056839474,0.481846744
+16,Dairy Product Manufacturing,AUD,Australia,0.082026707,1.590801072
+17,Fruit and Vegetable Product Manufacturing,AUD,Australia,0.063748959,0.551676494
+18,Oils and Fats Manufacturing,AUD,Australia,0.135071994,1.390628264
+19,Grain Mill and Cereal Product Manufacturing,AUD,Australia,0.075691555,1.245394905
+20,Bakery Product Manufacturing,AUD,Australia,0.063538529,0.611869452
+21,Sugar and Confectionery Manufacturing,AUD,Australia,0.066353711,0.84267956
+22,Other Food Product Manufacturing,AUD,Australia,0.076057185,0.716292065
+23,"Soft Drinks, Cordials and Syrup Manufacturing",AUD,Australia,0.075821417,0.462216915
+24,Beer Manufacturing,AUD,Australia,0.064797083,0.717295948
+25,"Wine, Spirits and Tobacco",AUD,Australia,0.074775798,0.522329169
+26,Textile Manufacturing,AUD,Australia,0.031817613,1.058026462
+27,"Tanned Leather, Dressed Fur and Leather Product Manufacturing",AUD,Australia,0.03599756,0.75145596
+28,Textile Product Manufacturing,AUD,Australia,0.031839642,0.823204556
+29,Knitted Product Manufacturing,AUD,Australia,0.020468198,0.752176086
+30,Clothing Manufacturing,AUD,Australia,0.032349991,0.413388748
+31,Footwear Manufacturing,AUD,Australia,0.034589183,0.518398542
+32,Sawmill Product Manufacturing,AUD,Australia,0.035923031,0.490592504
+33,Other Wood Product Manufacturing,AUD,Australia,0.0326221,0.491505649
+34,"Pulp, Paper and Paperboard Manufacturing",AUD,Australia,0.282631902,1.007236161
+35,Paper Stationery and Other Converted Paper Product Manufacturing,AUD,Australia,0.116203617,0.620995376
+36,Printing (including the reproduction of recorded media),AUD,Australia,0.068033396,0.427032968
+37,Petroleum and Coal Product Manufacturing,AUD,Australia,0.240494089,1.199900346
+38,Human Pharmaceutical and Medicinal Product Manufacturing,AUD,Australia,0.034143916,0.502236305
+39,Veterinary Pharmaceutical and Medicinal Product Manufacturing,AUD,Australia,0.02878327,0.825106696
+40,Basic Chemical Manufacturing,AUD,Australia,0.63854517,1.224372818
+41,Cleaning Compounds and Toiletry Preparation Manufacturing,AUD,Australia,0.025061948,0.469348654
+42,Polymer Product Manufacturing,AUD,Australia,0.034290663,0.5902443
+43,Natural Rubber Product Manufacturing,AUD,Australia,0.030159324,0.705549794
+44,Glass and Glass Product Manufacturing,AUD,Australia,0.108448991,0.643504842
+45,Ceramic Product Manufacturing,AUD,Australia,0.55182545,1.100434824
+46,"Cement, Lime and Ready-Mixed Concrete Manufacturing",AUD,Australia,0.460357724,0.97502142
+47,Plaster and Concrete Product Manufacturing,AUD,Australia,0.42151601,0.972959837
+48,Other Non-Metallic Mineral Product Manufacturing,AUD,Australia,0.461578021,0.956908374
+49,Iron and Steel Manufacturing,AUD,Australia,0.310269624,0.936555646
+50,Basic Non-Ferrous Metal Manufacturing,AUD,Australia,0.196986325,1.272268192
+51,Forged Iron and Steel Product Manufacturing,AUD,Australia,0.038497243,0.682598227
+52,Structural Metal Product Manufacturing,AUD,Australia,0.093360359,0.510034076
+53,Metal Containers and Other Sheet Metal Product manufacturing,AUD,Australia,0.093586278,0.474718257
+54,Other Fabricated Metal Product manufacturing,AUD,Australia,0.101095779,0.612069097
+55,Motor Vehicles and Parts; Other Transport Equipment manufacturing,AUD,Australia,0.038540828,0.428967957
+56,Ships and Boat Manufacturing,AUD,Australia,0.042433575,0.385532745
+57,Railway Rolling Stock Manufacturing,AUD,Australia,0.060989566,0.468341694
+58,Aircraft Manufacturing,AUD,Australia,0.037526732,0.426091557
+59,"Professional, Scientific, Computer and Electronic Equipment Manufacturing",AUD,Australia,0.022420487,0.237307937
+60,Electrical Equipment Manufacturing,AUD,Australia,0.075198843,0.469641556
+61,Domestic Appliance Manufacturing,AUD,Australia,0.067139592,0.428826372
+62,Specialised and other Machinery and Equipment Manufacturing,AUD,Australia,0.03207658,0.345983876
+63,Furniture Manufacturing,AUD,Australia,0.029375944,0.475784105
+64,Other Manufactured Products,AUD,Australia,0.030298911,0.498422552
+65,Electricity Generation,AUD,Australia,10.64405959,11.31892285
+66,"Electricity Transmission, Distribution, On Selling and Electricity Market Operation",AUD,Australia,0.014446152,0.426342218
+67,Gas Supply,AUD,Australia,1.086813769,1.858977048
+68,"Water Supply, Sewerage and Drainage Services",AUD,Australia,0.105142026,0.443896525
+69,"Waste Collection, Treatment and Disposal Services",AUD,Australia,2.048991371,2.216600615
+70,Residential Building Construction,AUD,Australia,0.004388616,0.363793379
+71,Non-Residential Building Construction,AUD,Australia,0.004226496,0.348540628
+72,Heavy and Civil Engineering Construction,AUD,Australia,0.003421141,0.28712928
+73,Construction Services,AUD,Australia,0.003610635,0.314878934
+74,Wholesale Trade,AUD,Australia,0.004351553,0.262565819
+75,Retail Trade,AUD,Australia,0.003381051,0.274416779
+76,Accommodation,AUD,Australia,0.004164715,0.381590235
+77,Food and Beverage Services,AUD,Australia,0.0043757,0.426614001
+78,Road Transport,AUD,Australia,0.618992807,1.004944532
+79,Rail Transport,AUD,Australia,0.243548028,0.65511534
+80,"Water, Pipeline and Other Transport",AUD,Australia,0.315219928,0.650471705
+81,Air and Space Transport,AUD,Australia,0.341863208,0.802849637
+82,Postal and Courier Pick-up and Delivery Service,AUD,Australia,0.217832459,0.556299041
+83,Transport Support services and storage,AUD,Australia,0.006552299,0.288021135
+84,Publishing (except Internet and Music Publishing),AUD,Australia,0.003416195,0.248340408
+85,Motion Picture and Sound Recording,AUD,Australia,0.005911753,0.357118439
+86,Broadcasting (except Internet),AUD,Australia,0.004240777,0.232597345
+87,"Internet Service Providers, Internet Publishing and Broadcasting, Websearch Portals and Data Processing",AUD,Australia,0.004755772,0.247080237
+88,Telecommunication Services,AUD,Australia,0.005053479,0.298275984
+89,Library and Other Information Services,AUD,Australia,0.001973899,0.127946537
+90,Finance,AUD,Australia,0.002018914,0.061543865
+91,Insurance and Superannuation Funds,AUD,Australia,0.005391578,0.132325574
+92,Auxiliary Finance and Insurance Services,AUD,Australia,0.004036874,0.16641304
+93,Rental and Hiring Services (except Real Estate),AUD,Australia,0.005734159,0.465999015
+94,Ownership of Dwellings,AUD,Australia,0.056578477,0.276265596
+95,Non-Residential Property Operators and Real Estate Services,AUD,Australia,0.004098178,0.241451673
+96,"Professional, Scientific and Technical Services",AUD,Australia,0.004437582,0.201253808
+97,Computer Systems Design and Related Services,AUD,Australia,0.003795716,0.161815984
+98,"Employment, Travel Agency and Other Administrative Services",AUD,Australia,0.0036851,0.155993715
+99,"Building Cleaning, Pest Control and Other Support Services",AUD,Australia,0.00531479,0.234651604
+100,Public Administration and Regulatory Services,AUD,Australia,0.003782548,0.331558947
+101,Defence,AUD,Australia,0,0.19252642
+102,Public Order and Safety,AUD,Australia,0.003280748,0.229709835
+103,Primary and Secondary Education Services (incl Pre-Schools and Special Schools),AUD,Australia,0.001934453,0.143408182
+104,"Technical, Vocational and Tertiary Education Services (incl undergraduate and postgraduate)",AUD,Australia,0.002319087,0.159747
+105,"Arts, Sports, Adult and Other Education Services (incl community education)",AUD,Australia,0.003349938,0.201065296
+106,Health Care Services,AUD,Australia,0.002753813,0.181722792
+107,Residential Care and Social Assistance Services,AUD,Australia,0.00154306,0.142330959
+108,"Heritage, Creative and Performing Arts",AUD,Australia,0.003981833,0.230588922
+109,Sports and Recreation,AUD,Australia,0.00561445,0.366730957
+110,Gambling,AUD,Australia,0.005799348,0.363224358
+111,Automotive Repair and Maintenance,AUD,Australia,0.00475168,0.291646172
+112,Other Repair and Maintenance,AUD,Australia,0.005106309,0.274581727
+113,Personal Services,AUD,Australia,0.005015113,0.268252988
+114,Other Services,AUD,Australia,0.00100675,0.097652538
