@@ -17,8 +17,8 @@ data using environmental, social or financial satellites.
 
 __authors__ = 'Andre Stephan (ORCID: 0000-0001-9538-3830), ' \
               'Paul-Antoine Bontinck (ORCID: 0000-0002-4072-1334)'
-__version__ = '1.0'
-__status__ = 'Stable version'
+__version__ = '1.4'
+__status__ = 'Release version'
 
 # global variables, used notably when writing csv files
 INITIAL_HEADER_LIST = [
