@@ -150,7 +150,7 @@ __Note__: The results for each satellite/flow are listed on the same csv sheet, 
 + [Paul-Antoine Bontinck](https://github.com/pa-bontinck) - _optimisation, implementation, testing and debugging_ - [ORCID](https://orcid.org/0000-0002-4072-1334)
 ### Contributors
 + [Robert H Crawford](https://github.com/rhcr) - _project leader and theoretical guidance_ - [ORCID](https://orcid.org/0000-0002-0189-3221)
-+ [Fabian Prideaux][https://github.com/fabianpx] - _proof reading documentation, testing package installation_
++ [Fabian Prideaux](https://github.com/fabianpx) - _proof reading documentation, testing package installation_
 
 ## License
 This project is shared under a GNU General Public License v3.0. See the [LICENSE](../master/LICENSE) file for more information.
