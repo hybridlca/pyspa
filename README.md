@@ -30,7 +30,7 @@ Identify the template files in the installed directory, or download them directl
 Once you have located these files, __you need to run a single function__ that will read the data, conduct the structural path analysis and return a SupplyChain object, as per the following code.
 
 ```
-sc = pyspa.get_spa(target_id = 70, max_stage = 10, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template.csv')
+sc = pyspa.get_spa(target_ID = 70, max_stage = 10, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template.csv')
 ```
 
 This will return your SupplyChain object which has numerous methods. Read the [documentation](http://htmlpreview.github.io/?https://github.com/hybridlca/pyspa/blob/master/pyspa_v1.0_documentation.html) for more information.
