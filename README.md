@@ -1,4 +1,4 @@
-![pyspa banner](https://github.com/hybridlca/pyspa/blob/master/banner.png)
+![pyspa banner](https://github.com/hybridlca/pyspa/blob/master/banner.png?raw=true)
 
 __pyspa__ is an object-oriented __python__ package which enables you to conduct a parametric structural path analysis on square A matrices (process or input-output) for any number of environmental, social or economic satellites/flows and for any number of stages upstream in your supply chain (as long you have enough RAM). The package produces a SupplyChain object which includes Pathway and Node objects (among others). Results can be exported to the csv format with a single line of code.
 
@@ -32,15 +32,16 @@ Identify the template files in the installed directory, or download them directl
 Once you have located these files, __you need to run a single function__ that will read the data, conduct the structural path analysis and return a SupplyChain object, as per the following code.
 
 ```
-sc = pyspa.get_spa(target_ID = 70, max_stage = 10, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template.csv')
+sc = pyspa.get_spa(target_ID = 70, max_stage = 10, a_matrix ='A_matrix_template.csv', infosheet='Infosheet_template.csv', thresholds='Thresholds_template.csv')
 ```
 
 This will return your SupplyChain object which has numerous methods. Read the [documentation](http://htmlpreview.github.io/?https://github.com/hybridlca/pyspa/blob/master/pyspa.html) for more information.
+
 Note that from pyspa 2.0 forward, this will also, by default, breakdown the remainder of the supply chain (not covered by your spa) into remainder pathways.
 You can also provide the thresholds as percentages of the total value, which is more convenient. To do so, simply use the call:
 
 ```
-sc = pyspa.get_spa(target_ID = 70, max_stage = 10, a_matrix_file_path ='A_matrix_template.csv', infosheet_file_path='Infosheet_template.csv', thresholds_file_path='Thresholds_template_perc.csv', thresholds_as_percentages=True)
+sc = pyspa.get_spa(target_ID = 70, max_stage = 10, a_matrix ='A_matrix_template.csv', infosheet='Infosheet_template.csv', thresholds='Thresholds_template_perc.csv', thresholds_as_percentages=True)
 ```
 
 To export the structural path analysis to a __csv__ file, use the built-in method.
@@ -149,6 +150,11 @@ Remainder pathways are appended at the end of the spa and broken down across the
 
 __Note__: The results for each satellite/flow are listed on the same csv sheet, in the order the appear in the infosheet. You will need to scroll down to identify where each new satellite/flow results starts, which is indicated by a header and an empty row. For those using Windows, you can click on any pathway for any given satellite/flow and press: "Ctrl + Shift + ↓". This will take you to the last pathway for this satellite/flow.
 
+
+## Other ways to call pyspa.get_spa()
+
+You can also call pyspa.get_spa using objects in the RAM instead of csv files. That is, a numpy array or scipy sparse array for the A matrix, and dictionaries for the infosheet and thresholds. You can also mix and match between objects in the RAM and csv files, for addtitional flexibility.
+
 ## Built with:
 
 + [pycharm](https://www.jetbrains.com/pycharm/)
@@ -170,3 +176,5 @@ This project is shared under a GNU General Public License v3.0. See the [LICENSE
 ## Acknowledgments
 
 This project was originally funded by the __Australian Research Council Discovery Project DP150100962__ at the [University of Melbourne](https://unimelb.edu.au/), Australia. As such, we are endebted to Australian taxpayers for making this work possible and to the University of Melbourne for providing the facilities and intellectual space to conduct this research. The code for the base method for conducting the structural path analysis is inspired from the code of late __[A/Prof Graham Treloar](https://new.gbca.org.au/news/gbca-news/how-legacy-late-green-building-researcher-lives/)__ at the University of Melbourne, who pioneered a Visual Basic Script in his [PhD thesis](https://dro.deakin.edu.au/eserv/DU:30023444/treloar-comprehensiveembodied-1998.pdf) to conduct a structural path analysis in 1997.
+
+
