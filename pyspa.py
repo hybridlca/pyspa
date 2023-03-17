@@ -20,7 +20,7 @@ The module was subsequently updated by André Stephan to improve its functionali
 
 __authors__ = 'Andre Stephan (ORCID: 0000-0001-9538-3830), ' \
               'Paul-Antoine Bontinck (ORCID: 0000-0002-4072-1334)'
-__version__ = '2.3'
+__version__ = '2.4'
 
 # global variables, used notably when writing csv files
 INITIAL_HEADER_LIST = [
@@ -112,7 +112,7 @@ class Interface:
 
     def __init__(self, a_matrix_file_path: str = None, infosheet_file_path: str = None, thresholds_file_path=None,
                  a_matrix=None,
-                 infosheet: pd.DataFrame = None, thresholds_dict: dict = None):
+                 infosheet: pd.DataFrame = None, thresholds: dict = None):
         """
         Instantiates the Interface class by providing the paths to all required csv files
         :param a_matrix_file_path: the path to the a_matrix csv file
@@ -120,7 +120,7 @@ class Interface:
         :param thresholds_file_path: the path to the thresholds csv file
         :param a_matrix: a sparse or dense A matrix (scipy.sparse.csc or numpy.array)
         :param infosheet: a pandas dataframe representing the infosheet
-        :param thresholds_dict: a dictionary representing the names of the flows and their thresholds in %
+        :param thresholds: a dictionary representing the names of the flows and their thresholds in %
         """
         if infosheet_file_path:
             print('Reading infosheet...', end='')
@@ -139,8 +139,8 @@ class Interface:
             print('Reading Thresholds...', end='')
             self.thresholds_dict = self._read_file(self, thresholds_file_path, output='thresholds_dict')
             print('Done')
-        elif thresholds_dict is not None:
-            self.thresholds_dict = thresholds_dict
+        elif thresholds is not None:
+            self.thresholds_dict = thresholds
         else:
             raise ValueError('Please specify either a threshold_dict file path or provide the dictionary of thresholds')
 
@@ -178,7 +178,7 @@ class Interface:
             elif output == 'array':
                 read_data = pd.read_csv(path, sep=',').values
             elif output == 'thresholds_dict':
-                read_data = pd.read_csv(path, sep=',', skiprows=0, index_col=0, squeeze=True).to_dict()
+                read_data = pd.read_csv(path, sep=',', skiprows=0, index_col=0).squeeze(1).to_dict()
             else:
                 raise ValueError('Output must be "df" or "array" or "thresholds_dict"')
         elif path.endswith('.xls') or path.endswith('.xlsx'):
@@ -188,7 +188,7 @@ class Interface:
                 elif output == 'array':
                     read_data = pd.read_excel(path, sep=',').values
                 elif output == 'thresholds_dict':
-                    read_data = pd.read_csv(path, sep=',', skiprows=0, index_col=0, squeeze=True).to_dict()
+                    read_data = pd.read_csv(path, sep=',', skiprows=0, index_col=0).squeeze(1).to_dict()
                 else:
                     raise ValueError('Output must be "df" or "array" or "thresholds_dict"')
             else:
@@ -3025,10 +3025,10 @@ def _populate_interface_keyword_args_dict(a_matrix, infosheet, thresholds) -> di
         'thresholds_file_path': None,
         'a_matrix': None,
         'infosheet': None,
-        'thresholds_dict': None
+        'thresholds': None
     }
 
-    for var, var_name in zip([a_matrix, infosheet, thresholds], ['a_matrix', 'infosheet', 'thresholds_dict']):
+    for var, var_name in zip([a_matrix, infosheet, thresholds], ['a_matrix', 'infosheet', 'thresholds']):
         if type(var) == str:
             result[var_name + '_file_path'] = var
         else:  # this does not make sure that we are providing the right variable types
