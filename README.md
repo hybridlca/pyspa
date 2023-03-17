@@ -11,6 +11,7 @@ The concept behind __pyspa__ was driven by the lack of open source code to condu
 You will need __python__ to run this package as well as the following python packages:
 1. [numpy](https://www.numpy.org/)
 2. [pandas](https://pandas.pydata.org/)
+3. [scipy](https://scipy.org/) - To support the use of sparse A matrices
 
 ### Installing
 Download and install the package from pip
