@@ -125,7 +125,7 @@ The infosheet must contain mandatory columns and at least one environmental/soci
   For example, for greenhouse gas emissions, you can write: __TR\_GHGe\_(kgCO<sub>2</sub>e)__
   
 You can add as many satellites as you need to the infosheet. The code will detect them automatically, as long as their headers are formatted as above.
-You can also add any other metadata column for your sectors/processes, and then access them through manual coding using the predefined method on your _Node_ objects: _get\_node\_attribute_. See the [__detailed documentation__](http://htmlpreview.github.io/?https://github.com/hybridlca/pyspa/blob/master/pyspa_v1.0_documentation.html) for more details.
+You can also add any other metadata column for your sectors/processes, and then access them through manual coding using the predefined method on your _Node_ objects: _get\_node\_attribute_. See the [__detailed documentation__](https://htmlpreview.github.io/?https://github.com/hybridlca/pyspa/blob/master/pyspa.html) for more details.
 
 #### Thresholds
 
